@@ -17,6 +17,7 @@ class Player
     @winner
   end
 
+  #consider removing
   def loser?
     !@winner
   end

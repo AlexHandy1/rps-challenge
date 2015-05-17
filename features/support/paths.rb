@@ -13,11 +13,17 @@ module NavigationHelpers
     when /the home\s?page/
       '/'
 
+    when /Player 1/
+      '/game/player1'
+
+    when /Player 2/
+      '/game/player2'
+
     when /New Game/
       '/game/new'
 
     when /the Game page/
-      '/game'
+      '/game/welcome'
 
     when /Take Turn/
       '/game/turn'

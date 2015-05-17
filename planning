@@ -52,9 +52,6 @@ Plan
 Plan - left to-do
 >> Full cucumber test coverage
 >> Fix underlying rspec test
->> Sessions to implement winner's name
->> Complete 2 player version
->> Upload to Heroku
 >> Add styling/ CSS across so can share
 >> Complete additional rules (if time and useful)
 >> Refactor system code

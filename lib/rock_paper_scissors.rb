@@ -11,8 +11,9 @@ class RockPaperScissors < Sinatra::Base
     erb :index
   end
 
-  get '/game/new' do
-    @error = params[:error]
+  get '/game/player1' do
+    session['player'] = 'player_1'
+     @error = params[:error]
     if @error.nil?
       @message = "What's your name?"
     else
@@ -21,13 +22,26 @@ class RockPaperScissors < Sinatra::Base
     erb :new_game
   end
 
-  post '/game' do
-    @name = params[:name]
-    session['name'] = @name
-
-    if @name.empty?
-      redirect to '/game/new?error=invalidname'
+  get '/game/player2' do
+    session['player'] = 'player_2'
+     @error = params[:error]
+    if @error.nil?
+      @message = "What's your name?"
     else
+      @message = "Please put in a valid name"
+    end
+    erb :new_game
+  end
+
+  post '/game/welcome' do
+    @name = params[:name]
+
+    if @name.empty? && session['player'] == 'player_1'
+      redirect to '/game/player1?error=invalidname'
+    elsif @name.empty? && session['player'] == 'player_2'
+      redirect to '/game/player2?error=invalidname'
+    else
+      session['player'] = @name
       erb :game
     end
   end
@@ -37,10 +51,10 @@ class RockPaperScissors < Sinatra::Base
   end
 
   post '/game/turn' do
-    @player_turn = params[:choice]
-    @@game.player_1.take_a_turn @player_turn
-    @@game.player_2.random_selection
-    @CPU_turn = @@game.player_2.check_turn
+    @player_1_turn = params[:choice1]
+    @player_2_turn = params[:choice2]
+    @@game.player_1.take_a_turn @player_1_turn
+    @@game.player_2.take_a_turn @player_2_turn
     @result = @@game.process_turn
 
     if @result == "Go again"
@@ -50,22 +64,20 @@ class RockPaperScissors < Sinatra::Base
     end
 
     if @result == "Game already won" && @@game.player_1.winner?
-      redirect to '/game/won'
+      redirect to '/game/player1/win'
     elsif @result == "Game already won" && @@game.player_2.winner?
-      redirect to '/game/lost'
+      redirect to '/game/player2/win'
     end
 
     erb :game_turn
   end
 
-  get '/game/won' do
-    @name = session['name']
-    erb :winner
+  get '/game/player1/win' do
+    "Player 1 wins"
   end
 
-  get '/game/lost' do
-    @name = session['name']
-    erb :loser
+  get '/game/player2/win' do
+    "Player 2 wins"
   end
   # start the server if ruby file executed directly
   run! if app_file == $0

@@ -1,13 +1,19 @@
 <h2>OK, time to play</h2>
 
 <form action='/game/turn' method="post">
-  <input type="radio" name="choice" value="Rock" id = "Rock" checked> Rock
-  <input type="radio" name="choice" value="Scissors" id = "Scissors"> Scissors
-  <input type="radio" name="choice" value="Paper" id = "Paper"> Paper
+  Player 1
+  <input type="radio" name="choice1" value="Rock" id = "Rock" checked> Rock
+  <input type="radio" name="choice1" value="Scissors" id = "Scissors"> Scissors
+  <input type="radio" name="choice1" value="Paper" id = "Paper"> Paper
+
+  Player 2
+  <input type="radio" name="choice2" value="Rock" id = "Rock" checked> Rock
+  <input type="radio" name="choice2" value="Scissors" id = "Scissors"> Scissors
+  <input type="radio" name="choice2" value="Paper" id = "Paper"> Paper
   <input type="submit" value="Submit">
 </form>
 
-<h3> Your last go: <%= @player_turn %> </h3>
-<h3> Computer's last go: <%= @CPU_turn %> </h3>
+<h3> Player 1 last go: <%= @player_1_turn %> </h3>
+<h3> Player 2 last go: <%= @player_2_turn %> </h3>
 
 <h3> <%= @message %> </h3>
